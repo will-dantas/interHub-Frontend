@@ -1,11 +1,42 @@
 import Head from 'next/head'
 import { LockClosedIcon } from '@heroicons/react/solid'
+import { FormEvent, useState } from 'react';
+import { api } from '../services/api';
 
 export default function Home() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [ loading, setLoading ] = useState(false);
+
+  async function handleSubmit() {
+    await api.post('/login', { email, password })
+    .then(res => {
+      if (res.status === 200) {
+        if (res.data.status === 1) {
+          window.location.href = '/dashboard'
+        } else if (res.data.status !== 2) {
+          alert('Atenção: Autenticação negada');
+        }
+        setLoading(false);
+      } else {
+        alert('Erro no servidor');
+        setLoading(false);
+      }
+    })
+  }
+
+  function loadSubmit(){
+    setLoading(true);
+    setTimeout(
+      () => handleSubmit(),
+      2000
+    )
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <Head>
-        <title>Home</title>
+        <title>InterHubX | Login</title>
       </Head>
 
       <div className="max-w-sm w-full space-y-8">
@@ -15,9 +46,9 @@ export default function Home() {
             src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
             alt="Workflow"
           />
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Faça login em sua conta</h2>
         </div>
-        <form className="mt-8 space-y-6">
+        <form className="mt-8 space-y-6" onSubmit={loadSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -31,7 +62,9 @@ export default function Home() {
                 autoComplete="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
+                placeholder="Email"
+                value={email}
+                onChange={event => setEmail(event.target.value)}
               />
             </div>
             <div>
@@ -45,28 +78,10 @@ export default function Home() {
                 autoComplete="current-password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
+                placeholder="Senha"
+                value={password}
+                onChange={event => setPassword(event.target.value)}
               />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember_me"
-                name="remember_me"
-                type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                Forgot your password?
-              </a>
             </div>
           </div>
 
@@ -78,7 +93,7 @@ export default function Home() {
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
               </span>
-              Sign in
+              Entrar
             </button>
           </div>
         </form>
