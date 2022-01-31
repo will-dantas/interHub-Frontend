@@ -134,7 +134,7 @@ export default function userRegister() {
                                   password: 'hdfh55'
                                 }])}
                               >
-                                Save
+                                Salvar
                               </button>
                             </div>
                           </td>

@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import { LockClosedIcon } from '@heroicons/react/solid'
-import { FormEvent, useState } from 'react';
-import { api } from '../services/api';
+import { useState } from 'react';
+import api from '../services/api';
+
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ export default function Home() {
     .then(res => {
       if (res.status === 200) {
         if (res.data.status === 1) {
-          window.location.href = '/dashboard'
+          window.location.href = '/admin/dashboard'
         } else if (res.data.status !== 2) {
           alert('Atenção: Autenticação negada');
         }

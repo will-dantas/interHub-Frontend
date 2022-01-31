@@ -86,7 +86,7 @@ export default function userRegister() {
                                 type="text"
                                 name="price"
                                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
-                                placeholder="Nome"
+                                placeholder="Colaborador"
                                 value={colaborador}
                                 onChange={event => setColaborador(event.target.value)}
                               />
@@ -99,7 +99,7 @@ export default function userRegister() {
                                 type="text"
                                 name="price"
                                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
-                                placeholder="Email"
+                                placeholder="Cliente"
                                 value={cliente}
                                 onChange={event => setCliente(event.target.value)}
                               />
@@ -113,7 +113,7 @@ export default function userRegister() {
                                   name="about"
                                   rows={3}
                                   className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                  placeholder="Problema"
+                                  placeholder="Problema..."
                                   value={text}
                                   onChange={event => setTtext(event.target.value)}
                                 />
@@ -127,7 +127,7 @@ export default function userRegister() {
                                 name="price"
                                 id="price"
                                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
-                                placeholder="Senha"
+                                placeholder="Coordendas"
                                 value={coordinates}
                                 onChange={event => setCoordinates(event.target.value)}
                               />
@@ -148,7 +148,7 @@ export default function userRegister() {
                                   create_at: '02/02/2022'
                                 }])}
                               >
-                                Save
+                                Concluído
                               </button>
                             </div>
                           </td>
